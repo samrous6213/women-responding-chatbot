@@ -9,7 +9,7 @@ from django.shortcuts import redirect
 
 from django.utils import timezone
 
-openai_api_key = "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"
+openai_api_key = ""
 openai.api_key = openai_api_key
 
 def ask_openai(message):
