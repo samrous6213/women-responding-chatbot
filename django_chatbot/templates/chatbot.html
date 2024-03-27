@@ -2,64 +2,134 @@
 
 {% block styles %}
 <style>
-    body, html {
-      height: 100%;
-    }
+    @import url("https://fonts.googleapis.com/css?family=Raleway|Ubuntu&display=swap");
 
-    .messages-box {
-      flex: 1;
-      overflow-y: auto;
-    }
+body {
+    background: #E8EBF5;
+    padding: 0;
+    margin: 0;
+    font-family: Raleway;
+}
 
-    .messages-list {
-      padding-left: 0;
-    }
+.chat-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.005);
+    margin: 15px;
+}
 
-    .message {
-      margin-bottom: 15px;
-      list-style: none;
-    }
+.card-header {
+    background-color: #D0736F; /* Couleur de fond distincte */
+    color: #ffffff; /* Texte en blanc pour une meilleure lisibilité */
+    padding: 15px 20px; /* Espacement amélioré */
+    font-size: 1.2em;
+    font-weight: bold;
+    text-align: center; /* Centrer le texte pour une meilleure apparence */
+    /*border-radius: 5px 5px 0 0;  Coins arrondis pour le header */
+}
 
-    .message-text {
-      padding: 10px;
-      border-radius: 5px;
-    }
 
-    .sent {
-      background-color: #dcf8c6;
-      align-self: flex-end;
-    }
+.messages-box {
+    flex: 1;
+    overflow-y: auto;
+    background: #ffffff;
+    padding: 12px;
+}
 
-    .received {
-      background-color: #f1f0f0;
-      align-self: flex-start;
-    }
+.message-form {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 10px;
+    background-color: #f8f9fa;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.015);
+}
 
-    .message-form {
-      display: flex;
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      padding: 10px;
-      background-color: #f8f9fa;
-    }
+.message-input {
+    flex: 1;
+    border-radius: 50px;
+    background: whitesmoke;
+    margin: 10px ;
+    font-family: ubuntu;
+    font-weight: 600;
+    color: #444;
+    width: 280px;
+}
 
-    .message-input {
-      flex: 1;
-      border-radius: 0;
-      border-right: none;
-    }
+.btn-send {
+  background-color: transparent; /* Supprime le fond */
+    border: none; /* Supprime la bordure */
+    color: #000000; /* Couleur du texte */
+    font-size: 16px; /* Taille du texte */
+    font-weight: bold; /* Gras */
+    padding: 10px 20px; /* Espacement interne */
+    cursor: pointer; /* Changer le curseur en main lorsqu'on passe dessus */
+    box-shadow: none; /* Supprime l'ombre */
+    -webkit-box-shadow: none; /* Pour la compatibilité avec les navigateurs WebKit */
+    -moz-box-shadow: none; /* Pour la compatibilité avec les navigateurs Mozilla */
 
-    .btn-send {
-      border-radius: 0;
-    }
+}
+.btn-send:hover {
+  background-color: transparent; /* Supprime le fond */
+    border: none; /* Supprime la bordure */
+    color: #000000; /* Couleur du texte */
+    font-size: 16px; /* Taille du texte */
+    font-weight: bold; /* Gras */
+    padding: 10px 20px; /* Espacement interne */
+    cursor: pointer; /* Changer le curseur en main lorsqu'on passe dessus */
+    box-shadow: none; /* Supprime l'ombre */
+    -webkit-box-shadow: none; /* Pour la compatibilité avec les navigateurs WebKit */
+    -moz-box-shadow: none; /* Pour la compatibilité avec les navigateurs Mozilla */
 
+  }
+
+  .btn-send:focus {
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    outline: none; /* Supprime l'outline par défaut qui peut apparaître */
+}
+
+.message-text {
+    display: flex;
+    flex-direction: column;
+    max-width: 100%; /* Limite la largeur du message */
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    background-color: #f1f0f0; /* Couleur de fond pour les messages */
+}
+
+.message-sender {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.bot{
+    color: #cd1f08;
+
+}
+
+.you {
+    color: #75baff;
+}
+.message-content {
+    word-wrap: break-word;
+}
+
+
+
+@media screen and (max-width: 450px) {
     .chat-container {
-      height: 100%;
-      display: flex;
-      flex-direction: column;
+        min-width: 100% !important;
     }
+}
+
   </style>
 {% endblock %}
 
@@ -67,11 +137,11 @@
 {% block content %}
 <div class="chat-container">
   <div class="card flex-grow-1">
-    <div class="card-header bg-primary text-white">Chat</div>
+    <div class="card-header  text-white">Chat</div>
     {% if user.is_authenticated %}
-    <div class="card-header bg-primary text-white"><b>Welcome, {{user.username}}</b>   <a style="color: yellow;" href="logout">Logout</a></div>
+    <div class="card-header  text-white"><b>Welcome, {{user.username}}</b>   <a style="color: yellow;" href="logout">Logout</a></div>
     {% else %}
-    <div class="card-header bg-primary text-white"><a style="color: yellow" href="login">Login</a>   <a style="color: yellow;" href="register">Register</a></div>
+    <div class="card-header  text-white"><a style="color: yellow" href="login">Login</a>   <a style="color: yellow;" href="register">Register</a></div>
     {% endif %}
     <div class="card-body messages-box">
       
@@ -79,11 +149,11 @@
         
          <li class="message received">
           <div class="message-text">
-            <div class="message-sender">
-              <b>AI Chatbot</b>
+            <div class="message-sender bot">
+              <b>AI Women's Support Chatbot</b>
             </div>
             <div class="message-content">
-              Hi {{user.username}}, I am your AI Chatbot, you can ask me anything.
+              Welcome {{user.username}} to our Women's Support Chatbot! We're here to provide you with information, resources, and support regarding issues such as abuse, violence, legal rights, and more. Whether you have questions about your rights, need guidance on accessing support services, or simply need someone to talk to, we're here to help. Feel free to ask any questions you may have, and we'll do our best to assist you. Your safety and well-being are our top priorities.
             </div>
           </div>
         </li> 
@@ -92,7 +162,7 @@
           {% if chat.user == request.user %}
           <li class="message sent">
             <div class="message-text">
-              <div class="message-sender">
+              <div class="message-sender you">
                 <b>You</b>
               </div>
               <div class="message-content">
@@ -103,8 +173,8 @@
 
           <li class="message received">
             <div class="message-text">
-              <div class="message-sender">
-                <b>AI Chatbot</b>
+              <div class="message-sender bot">
+                <b>AI Women's Support Chatbot</b>
               </div>
               <div class="message-content">
                 {{chat.response}}
@@ -128,7 +198,7 @@
     <div class="input-group">
       <input type="text" class="form-control message-input" placeholder="Type your message...">
       <div class="input-group-append">
-        <button type="submit" class="btn btn-primary btn-send">Send</button>
+        <button type="submit" class="btn btn-sm btn-primary btn-send">Send</button>
       </div>
     </div>
   </form>
@@ -177,8 +247,8 @@
         messageItem.classList.add('message', 'received');
         messageItem.innerHTML = `
         <div class="message-text">
-            <div class="message-sender">
-              <b>AI Chatbot</b>
+            <div class="message-sender bot">
+              <b>AI Women's Support Chatbot</b>
             </div>
             <div class="message-content">
                 ${response}
