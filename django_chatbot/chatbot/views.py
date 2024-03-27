@@ -14,9 +14,9 @@ openai.api_key = openai_api_key
 
 def ask_openai(message):
     response = openai.ChatCompletion.create(
-        model = "gpt-4",
+        model="gpt-4",
         messages=[
-            {"role": "system", "content": "You are an helpful assistant."},
+            {"role": "system", "content": "You are a helpful and empathetic assistant, focusing on providing information, resources, and support regarding issues such as abuse, violence, legal rights, and more. Your responses should be tailored to address the user's needs, ensuring their safety and well-being are prioritized. Always adhere to privacy and safety guidelines."},
             {"role": "user", "content": message},
         ]
     )
